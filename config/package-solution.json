@@ -1,0 +1,10 @@
+{
+  "solution": {
+    "name": "my-details-client-side-solution",
+    "id": "18f3a906-b416-4520-89ef-0f3c074bbaf3",
+    "version": "1.0.0.0"
+  },
+  "paths": {
+    "zippedPackage": "my-details.spapp"
+  }
+}

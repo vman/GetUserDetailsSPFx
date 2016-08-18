@@ -1,0 +1,19 @@
+{
+  "$schema": "../../../node_modules/@microsoft/sp-module-interfaces/lib/manifestSchemas/jsonSchemas/clientSideComponentManifestSchema.json",
+
+  "id": "584892c9-7760-484b-8922-dd4d347a99af",
+  "componentType": "WebPart",
+  "version": "0.0.1",
+  "manifestVersion": 2,
+
+  "preconfiguredEntries": [{
+    "groupId": "584892c9-7760-484b-8922-dd4d347a99af",
+    "group": { "default": "Under Development" },
+    "title": { "default": "GetMyDetails" },
+    "description": { "default": "webpart to fetch the current user&#39;s details" },
+    "officeFabricIconFontName": "Page",
+    "properties": {
+      "userprofileproperties": "Multi-line text field"
+    }
+  }]
+}
