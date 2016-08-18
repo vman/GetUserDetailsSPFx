@@ -8,7 +8,6 @@ import {
 import styles from './GetMyDetails.module.scss';
 import * as strings from 'mystrings';
 import { IGetMyDetailsWebPartProps } from './IGetMyDetailsWebPartProps';
-import { EnvironmentType } from '@microsoft/sp-client-base';
 
 
 export interface IUserDetails {
@@ -43,7 +42,7 @@ export default class GetMyDetailsWebPart extends BaseClientSideWebPart<IGetMyDet
     this.showMyDetails();
   }
 
-  private showMyDetails(){
+  private showMyDetails(): void{
     this._getMyData()
         .then((response) => {
           this._renderDetails(response);
@@ -51,9 +50,9 @@ export default class GetMyDetailsWebPart extends BaseClientSideWebPart<IGetMyDet
   }
 
   private _getMyData(): Promise<IUserDetails> {
-    const webAbsoluteUrl = this.context.pageContext.web.absoluteUrl;
-    const userLoginName = encodeURIComponent(_spClientSidePageContext.user.LoginName);
-    const propertyName = this.properties.userprofileproperties;
+    const webAbsoluteUrl: string = this.context.pageContext.web.absoluteUrl;
+    const userLoginName: string = encodeURIComponent(_spClientSidePageContext.user.LoginName);
+    const propertyName: string = this.properties.userprofileproperty;
 
     return this.context.httpClient.get(`${webAbsoluteUrl}/_api/SP.UserProfiles.PeopleManager/GetUserProfilePropertyFor(accountName=@v,propertyName='${propertyName}')?@v='${userLoginName}'`)
       .then((response: Response) => {
@@ -63,19 +62,29 @@ export default class GetMyDetailsWebPart extends BaseClientSideWebPart<IGetMyDet
 
 
   private _renderDetails(property: IUserDetails): void {
-    // let html: string = '';
-    // items.forEach((item: ISPList) => {
-    //   html += `
-    // <ul class="${styles.list}">
-    //     <li class="${styles.listItem}">
-    //         <span class="ms-font-l">${item.Title}</span>
-    //     </li>
-    // </ul>`;
-    // });
 
     const listContainer: Element = this.domElement.querySelector('#spListContainer');
 
-    listContainer.innerHTML = `${this.properties.userprofileproperties} is ${property.value}`;
+    const userPropertyLabel: Element = document.createElement("label");
+    userPropertyLabel.innerHTML = this.properties.userprofileproperty;
+
+    const userPropertyInput: Element = document.createElement("input");
+    userPropertyInput.setAttribute("type", "text");
+    userPropertyInput.setAttribute("value", property.value);
+
+    const updateButton: Element = document.createElement("button");
+    updateButton.innerHTML = "Update";
+    // TODO: Fix this
+    updateButton.setAttribute("onclick", "GetMyDetailsWebPart.setUserProperties");
+
+    listContainer.appendChild(userPropertyLabel);
+    listContainer.appendChild(userPropertyInput);
+    listContainer.appendChild(updateButton);
+  }
+
+  private setUserProperties(){
+      console.log("clicked");
+
   }
 
   protected get propertyPaneSettings(): IPropertyPaneSettings {
@@ -89,7 +98,7 @@ export default class GetMyDetailsWebPart extends BaseClientSideWebPart<IGetMyDet
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('userprofileproperties', {
+                PropertyPaneTextField('userprofileproperty', {
                   label: "User Profile Property"
                 })
               ]

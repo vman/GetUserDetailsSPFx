@@ -1,3 +1,3 @@
 export interface IGetMyDetailsWebPartProps {
-    userprofileproperties: string;
+    userprofileproperty: string;
 }

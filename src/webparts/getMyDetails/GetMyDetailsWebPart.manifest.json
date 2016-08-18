@@ -13,7 +13,7 @@
     "description": { "default": "webpart to fetch the current user&#39;s details" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "userprofileproperties": "Multi-line text field"
+      "userprofileproperty": "PreferredName"
     }
   }]
 }
